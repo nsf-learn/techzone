@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechZone</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --brand-blue: #2349c7;
+      --brand-dark: #0f56b3;
+      --text-grey: #5d5d5d;
+      --light-grey: #efefef;
+      --page-grey: #e9e9e9;
+      --border-grey: #d9d9d9;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+      background: var(--page-grey);
+      color: #222;
+    }
+
+    body {
+margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    background: var(--page-grey);
+    color: #222;
+display: block;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .screen {
+      width: 100%;
+      min-height: auto;
+      background: #fff;
+    box-shadow: none;
+    border-radius: 0;
+      overflow: visible;
+    }
+
+    .page-inner {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      background: #fff;
+      min-height: calc(100vh - 36px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hidden { display: none !important; }
+
+    .top-blue {
+      display: none;
+    }
+
+    .browser-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #dfdfdf;
+      position: sticky;
+      top: 0;
+      z-index: 25;
+    }
+
+    .browser-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 90px;
+    }
+
+    .browser-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #d7d7d7;
+      background: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #666;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .browser-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .browser-address {
+      flex: 1;
+      min-width: 0;
+      background: #fff;
+      border: 1px solid #d7d7d7;
+      border-radius: 18px;
+      padding: 8px 14px;
+      font-size: 1.08rem;
+      color: #444;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .address-lock {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .address-text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-grey);
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo {
+      font-size: clamp(1.9rem, 2.3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--brand-dark);
+      letter-spacing: -0.4px;
+    }
+
+    .sign-in-link {
+      color: var(--text-grey);
+      font-size: clamp(1rem, 1.7vw, 1.2rem);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .search-bar-wrap {
+      background: var(--brand-blue);
+      padding: 14px 14px 16px;   
+    }
+.search-bar-inner {
+  width: min(1200px, calc(100% - 24px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+    .search-box {
+      flex: 1;
+      background: #fff;
+      border: none;
+      height: 42px;
+      padding: 0 12px;
+      font-size: 1rem;
+      color: #555;
+      font-family: inherit;
+    }
+
+    .search-icon-box {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 270px;
+      background: linear-gradient(90deg, #0052c8 0%, #1677dd 58%, #7fc0f2 100%);
+      overflow: hidden;
+    }
+.hero-inner {
+  position: relative;
+  width: min(1200px, calc(100% - 24px));
+  min-height: 270px;
+  margin: 0 auto;
+}
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 25% 35%, rgba(255,255,255,0.22), transparent 32%);
+      pointer-events: none;
+    }
+
+    .hero-text {
+      position: absolute;
+      left: 18px;
+      top: 42px;
+      z-index: 2;
+      color: #fff;
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      line-height: 1.14;
+      font-weight: 800;
+    }
+
+    .shop-btn {
+      border: none;
+      background: #fff;
+      color: var(--brand-dark);
+      font-weight: 700;
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      padding: 10px 18px;
+      cursor: pointer;
+      border-radius: 2px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      font-family: inherit;
+    }
+
+    .hero img {
+    position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42%;
+  max-width: 520px;
+  max-height: 90%;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45));
+    }
+
+    .cards-row {
+      padding: 12px 10px 0;
+      background: var(--light-grey);
+    }
+.cards-row-inner {
+  width: min(1200px, calc(100% - 12px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+   .small-card {
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  min-height: 180px;
+  padding: 18px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.small-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.small-card-image {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small-card-image img {
+  width: auto;
+  max-width: 78%;
+  max-height: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+    .small-card p {
+      margin: 0;
+      font-size: 1.08rem;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .info-row {
+      padding: 10px 0 14px;
+      background: var(--light-grey);
+    }
+.info-row-inner {
+  width: min(1200px, calc(100% - 12px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+    .info-card {
+      background: linear-gradient(to right, #1f5fc4, #0f4aa5);
+  color: #fff;
+  border-radius: 2px;
+  min-height: 72px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Century Gothic', sans-serif;
+    }
+.info-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+
+.info-subtitle {
+  font-size: 0.72rem;
+  font-weight: 400;
+  opacity: 0.95;
+  line-height: 1.2;
+}
+
+    .page-end {
+      margin-top: auto;
+      background: var(--light-grey);
+    }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #666;
+      padding: 16px 18px 18px;
+      background: var(--light-grey);
+      border-top: 1px solid #e3e3e3;
+    }
+
+    .login-page {
+      background: #f3f3f3;
+    }
+
+    .login-content {
+      padding: 18px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .login-header {
+      background: var(--brand-blue);
+      color: #fff;
+      font-size: clamp(1.8rem, 2.6vw, 2rem);
+      font-weight: 700;
+      padding: 12px 14px;
+    }
+
+    .card-area {
+      background: #fff;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      padding: 22px 20px;
+      margin-top: 18px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-area h2 {
+      margin: 0 0 16px;
+      font-size: clamp(1.7rem, 2.8vw, 2.15rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 1.22rem;
+      font-weight: 700;
+      margin: 14px 0 8px;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 52px;
+      border: 1.5px solid #9a9a9a;
+      border-radius: 4px;
+      padding: 0 14px;
+      font-size: 1.18rem;
+      background: #fff;
+      font-family: inherit;
+      color: #222;
+    }
+
+    .primary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 22px auto 0;
+      min-width: 230px;
+      height: 46px;
+      border: none;
+      border-radius: 23px;
+      background: var(--brand-dark);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0 22px;
+    }
+
+    .feedback {
+  margin-top: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: 24px;
+  padding: 0 6px;
+  line-height: 1.5;
+    }
+
+    .error { color: #c62828; }
+    .success { color: #1b7a1b; }
+
+    .show-password-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 1.08rem;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .fake-notification {
+   display: flex;
+  justify-content: center;
+  padding: 16px 0 10px;
+  background: transparent;
+    }
+
+    .notification-card {
+ display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(92%, 520px);
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .notify-app {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    .notify-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notify-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .notify-top strong {
+      font-size: 1rem;
+    }
+
+    .notify-time {
+      font-size: 0.85rem;
+      color: #777;
+      white-space: nowrap;
+    }
+
+    .notify-title {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #222;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.notify-title strong {
+  font-weight: 700;
+    }
+
+    .secondary-link {
+      margin-top: 16px;
+      color: var(--brand-dark);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .small-note {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.45;
+    }
+
+    .welcome-wrap {
+      padding: 0 0 24px;
+      background: var(--light-grey);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .welcome-banner {
+       background: var(--light-grey);
+  padding: 16px 0 8px;
+}
+
+.welcome-banner-inner {
+  width: min(1200px, calc(100% - 24px));
+  margin: 0 auto;
+}
+    .hero-centered .hero-text {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 80%;
+      width: 80%;
+      text-align: center;
+    }
+
+  .popular-wrap {
+  background: var(--light-grey);
+  padding: 0 0 14px;
+}
+
+.popular-inner {
+  width: min(1200px, calc(100% - 24px));
+  margin: 0 auto;
+}
+
+.popular-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #333;
+  padding: 14px 0 8px;
+  background: transparent;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0;
+  background: transparent;
+}
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #dddddd;
+      border-radius: 4px;
+      padding: 10px;
+      min-height: 190px;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 108px;
+      object-fit: contain;
+      background: #fff;
+      margin-bottom: 8px;
+    }
+
+    .product-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      line-height: 1.25;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .price {
+      font-size: 1.35rem;
+      color: var(--brand-dark);
+      font-weight: 800;
+    }
+
+    .popup-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.22);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 20px;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup-box {
+      width: min(92%, 360px);
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .popup-box h3 {
+      margin: 0 0 12px;
+      font-size: 1.9rem;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #222;
+    }
+
+    .popup-box p {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .popup-ok {
+      min-width: 140px;
+      height: 40px;
+      border: none;
+      border-radius: 20px;
+      background: var(--brand-dark);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        padding: 0;
+      }
+
+      .screen,
+      .page-inner {
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        min-height: 208px;
+      }
+
+      .hero-text {
+        top: 54px;
+        max-width: 54%;
+      }
+
+      .hero img {
+        width: min(46vw, 215px);
+        max-width: 50%;
+      }
+    }
+
+   @media (max-width: 768px) {
+  .browser-strip {
+    padding: 7px 8px;
+    gap: 6px;
+  }
+
+  .browser-nav {
+    min-width: auto;
+  }
+
+  .browser-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+
+  .browser-address {
+    font-size: 1rem;
+    padding: 7px 10px;
+  }
+
+  .nav-bar {
+    padding: 10px 10px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .sign-in-link {
+    font-size: 0.96rem;
+  }
+
+  .search-bar-wrap {
+    padding: 10px 10px 12px;
+  }
+
+  .search-bar-inner {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .search-box {
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .search-icon-box {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hero {
+    min-height: 240px;
+  }
+
+  .hero-inner {
+    width: 100%;
+    min-height: 220px;
+  }
+
+  .hero-text {
+    top: 26px;
+    left: 12px;
+    max-width: 48%;
+  }
+
+  .hero-text h1 {
+    font-size: 1.45rem;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+
+  .shop-btn {
+    padding: 8px 14px;
+    font-size: 0.98rem;
+  }
+
+  .hero img {
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44%;
+  max-width: 190px;
+  max-height: 80%;
+  height: auto;
+  object-fit: contain;
+  }
+
+  .cards-row {
+    padding: 10px 0 0;
+  }
+
+  .cards-row-inner {
+    width: 100%;
+    padding: 0 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    box-sizing: border-box;
+  }
+
+  .small-card {
+    min-height: 210px;
+    padding: 10px 6px 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .small-card-title {
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+
+  .small-card-image {
+    width: 100%;
+  }
+
+  .small-card-image img {
+  width: auto;
+  max-width: 82%;
+  max-height: 90px;
+  object-fit: contain;
+  margin-top: 10px;
+  display: block;
+  }
+.small-card:nth-child(3) img {
+  max-height: 100px;
+}
+  .info-row {
+    padding: 8px 0 12px;
+  }
+
+  .info-row-inner {
+    width: 100%;
+    padding: 0 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    box-sizing: border-box;
+  }
+
+  .info-card {
+    min-height: 78px;
+    padding: 8px 6px;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .info-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .info-icon img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .info-title {
+    font-size: 0.82rem;
+    line-height: 1.05;
+    margin-bottom: 2px;
+  }
+
+  .info-subtitle {
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+
+  .disclaimer,
+  .small-note,
+  .field-label,
+  .field-input,
+  .feedback {
+    font-size: 1rem;
+  }
+
+  .login-content {
+    padding: 12px 10px 36px;
+  }
+
+  .card-area {
+    margin-top: 12px;
+    padding: 18px 14px;
+  }
+
+  .card-area h2 {
+    font-size: 1.55rem;
+  }
+
+  .primary-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .fake-notification {
+    top: 45px;
+    padding: 8px 8px 0;
+  }
+
+  .notification-card {
+    border-radius: 16px;
+    padding: 8px 10px;
+  }
+
+  .notify-app {
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .popup-box h3 {
+    font-size: 1.7rem;
+  }
+}
+
+    svg { display: block; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- PAGE 1: HOMEPAGE -->
+    <section id="homePage" class="screen">
+      <div class="page-inner">
+        <div class="top-blue"></div>
+
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" id="backBtn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" id="forwardBtn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au</span>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <div class="nav-left">
+            <div class="icon-button" onclick="showPopup('menuPopup')">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="3" y1="12" x2="21" y2="12" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="3" y1="18" x2="21" y2="18" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="logo">TechZone</div>
+          </div>
+
+          <div class="nav-right">
+            <a class="sign-in-link" onclick="goToPage(1)">Sign in &gt;</a>
+            <div class="icon-button" onclick="goToPage(1)">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4.2" fill="#7a7a7a"/>
+                <path d="M4 21c0-4.4 3.7-7 8-7s8 2.6 8 7" fill="#7a7a7a"/>
+              </svg>
+            </div>
+            <div class="icon-button" onclick="showPopup('cartPopup')">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="20" r="1.8" fill="#7a7a7a"/>
+                <circle cx="18" cy="20" r="1.8" fill="#7a7a7a"/>
+                <path d="M3 4h2l2.2 9.2c.1.5.5.8 1 .8H18c.5 0 .9-.3 1-.8L21 7H7" fill="none" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-bar-wrap">
+          <div class="search-bar-inner">
+          <input class="search-box" type="text" value="Search techzone.com.au" readonly>
+          <div class="search-icon-box" onclick="showPopup('searchPopup')">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6.5" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+              <line x1="15" y1="15" x2="21" y2="21" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+             </div>
+        </div>
+
+        <div class="hero">
+          <div class="hero-inner">
+          <div class="hero-text">
+            <h1>Great deals on<br>headphones!</h1>
+            <button class="shop-btn" onclick="showPopup('shopPopup')">Shop Now</button>
+          
+          </div>
+
+          <img src="home-page-headphones.png" alt="Headphones product image" onerror="this.style.display='none'">
+        </div>
+          </div>
+
+      <div class="cards-row">
+  <div class="cards-row-inner">
+
+    <div class="small-card">
+      <div class="small-card-title">Laptops</div>
+      <div class="small-card-image">
+        <img src="laptop.png" alt="Laptop">
+      </div>
+    </div>
+
+    <div class="small-card">
+      <div class="small-card-title">Smartphones</div>
+      <div class="small-card-image">
+        <img src="smartphones.png" alt="Smartphone">
+      </div>
+    </div>
+
+    <div class="small-card">
+      <div class="small-card-title">Headphones</div>
+      <div class="small-card-image">
+        <img src="headphones (4).png" alt="Headphones">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+        <div class="info-row">
+  <div class="info-row-inner">
+
+    <div class="info-card">
+      <div class="info-icon">
+         <img src="express-delivery (1).png" alt="Shipping">
+      </div>
+      <div class="info-text">
+        <div class="info-title">Fast Shipping</div>
+        <div class="info-subtitle">Quick Delivery to Your Door</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">
+              <img src="return (1).png" alt="Returns"> 
+      </div>
+      <div class="info-text">
+        <div class="info-title">Easy Returns</div>
+        <div class="info-subtitle">30-Day Return Policy</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">
+     <img src="protection.png" alt="Payments"> 
+      </div>
+      <div class="info-text">
+        <div class="info-title">Secure Payments</div>
+        <div class="info-subtitle">Safe Checkout</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+        <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+
+        <!-- POPUPS ONLY ON FIRST PAGE -->
+        <div id="menuPopup" class="popup-overlay">
+          <div class="popup-box">
+            <h3>Menu</h3>
+            <p>This is the menu button. Tap here to open more parts of the website.</p>
+            <button class="popup-ok" onclick="closePopup('menuPopup')">OK</button>
+          </div>
+        </div>
+
+        <div id="searchPopup" class="popup-overlay">
+          <div class="popup-box">
+            <h3>Search</h3>
+            <p>This is the search button. Tap here to look for products on the website.</p>
+            <button class="popup-ok" onclick="closePopup('searchPopup')">OK</button>
+          </div>
+        </div>
+
+        <div id="cartPopup" class="popup-overlay">
+          <div class="popup-box">
+            <h3>Cart</h3>
+            <p>This is the cart button. Tap here to see the items you want to buy.</p>
+            <button class="popup-ok" onclick="closePopup('cartPopup')">OK</button>
+          </div>
+        </div>
+
+        <div id="shopPopup" class="popup-overlay">
+          <div class="popup-box">
+            <h3>Shop now</h3>
+            <p>This button takes you to the products so you can start shopping.</p>
+            <button class="popup-ok" onclick="closePopup('shopPopup')">OK</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: ENTER EMAIL -->
+    <section id="emailPage" class="screen hidden login-page">
+      <div class="page-inner">
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au/signin</span>
+          </div>
+        </div>
+
+        <div class="login-header">TechZone</div>
+        <div class="login-content">
+          <div class="card-area">
+            <h2>Sign in or create account</h2>
+            <label class="field-label" for="email">Enter email</label>
+            <input id="email" class="field-input" type="text" autocomplete="off">
+            <button class="primary-btn" onclick="verifyEmailOnly()">Verify email</button>
+            <div id="emailFeedback" class="feedback"></div>
+          </div>
+        </div>
+        <div class="page-end">
+          <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: NEW USER -->
+    <section id="newUserPage" class="screen hidden login-page">
+      <div class="page-inner">
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au/new-account</span>
+          </div>
+        </div>
+
+        <div class="login-header">TechZone</div>
+        <div class="login-content">
+          <div class="card-area">
+            <h2>Looks like you're new to TechZone</h2>
+            <p class="small-note">Tap the button to create your account.</p>
+            <button class="primary-btn" onclick="goToPage(3)">Create an account</button>
+          </div>
+        </div>
+        <div class="page-end">
+          <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: NAME + PASSWORD -->
+    <section id="detailsPage" class="screen hidden login-page">
+      <div class="page-inner">
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au/create-account</span>
+          </div>
+        </div>
+
+        <div class="login-header">TechZone</div>
+        <div class="login-content">
+          <div class="card-area">
+            <h2>Create your account</h2>
+
+            <label class="field-label" for="firstName">First name</label>
+            <input id="firstName" class="field-input" type="text" autocomplete="off">
+
+            <label class="field-label" for="lastName">Last name</label>
+            <input id="lastName" class="field-input" type="text" autocomplete="off">
+
+            <label class="field-label" for="password">Password</label>
+            <input id="password" class="field-input" type="password" autocomplete="off">
+
+            <label class="show-password-row">
+              <input type="checkbox" onclick="togglePassword()"> Show password
+            </label>
+
+            <button class="primary-btn" onclick="verifyDetails()">Create account</button>
+            <div id="formFeedback" class="feedback"></div>
+          </div>
+        </div>
+        <div class="page-end">
+          <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: ENTER SECURITY CODE -->
+    <section id="codePage" class="screen hidden login-page">
+      <div class="page-inner">
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au/verify-email</span>
+          </div>
+        </div>
+
+        <div class="fake-notification">
+          <div class="notification-card">
+            <div class="notify-app">TZ</div>
+            <div class="notify-body">
+              <div class="notify-top">
+                <strong>TechZone</strong>
+                <span class="notify-time">now</span>
+              </div>
+             <div class="notify-title">
+  <span>The code to verify your email is </span>
+  <strong id="displayCodeInlineShort">857271</strong>
+  <span>.</span>
+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-header">TechZone</div>
+        <div class="login-content">
+          <div class="card-area">
+            <h2>Verify email address</h2>
+
+            <label class="field-label" for="securityCode">Enter security code</label>
+            <input id="securityCode" class="field-input" type="text" inputmode="numeric" maxlength="6" autocomplete="off">
+
+            <button class="primary-btn" onclick="checkCode()">Create your account</button>
+            <div id="codeFeedback" class="feedback"></div>
+            <div class="secondary-link" onclick="resendCode()">Resend code</div>
+          </div>
+        </div>
+        <div class="page-end">
+          <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: WELCOME / HOME -->
+    <section id="welcomePage" class="screen hidden">
+      <div class="page-inner welcome-wrap">
+        <div class="top-blue"></div>
+
+        <div class="browser-strip">
+          <div class="browser-nav">
+            <button class="browser-btn" onclick="goBack()" aria-label="Go back">&#8592;</button>
+            <button class="browser-btn" onclick="goForward()" aria-label="Go forward">&#8594;</button>
+          </div>
+          <div class="browser-address">
+            <span class="address-lock">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#000"/>
+                <path d="M8 10V7.5A4 4 0 0 1 12 3.5a4 4 0 0 1 4 4V10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="address-text">www.techzone.com.au/home</span>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <div class="nav-left">
+            <div class="icon-button">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="3" y1="12" x2="21" y2="12" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="3" y1="18" x2="21" y2="18" stroke="#7a7a7a" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="logo">TechZone</div>
+          </div>
+
+          <div class="nav-right">
+            <div class="sign-in-link">Hi, <span id="welcomeName">User</span></div>
+            <div class="icon-button">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4.2" fill="#7a7a7a"/>
+                <path d="M4 21c0-4.4 3.7-7 8-7s8 2.6 8 7" fill="#7a7a7a"/>
+              </svg>
+            </div>
+            <div class="icon-button">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="20" r="1.8" fill="#7a7a7a"/>
+                <circle cx="18" cy="20" r="1.8" fill="#7a7a7a"/>
+                <path d="M3 4h2l2.2 9.2c.1.5.5.8 1 .8H18c.5 0 .9-.3 1-.8L21 7H7" fill="none" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-bar-wrap">
+          <div class="search-bar-inner">
+    <input class="search-box" type="text" value="Search techzone.com.au" readonly>
+          <div class="search-icon-box">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10" cy="10" r="6.5" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+              <line x1="15" y1="15" x2="21" y2="21" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-banner">
+          <div class="welcome-banner-inner">
+    <div class="hero hero-centered" style="min-height: 210px; border-radius: 8px;">
+            <div class="hero-text">
+              <h1 style="font-size: clamp(1.9rem, 3vw, 2.5rem);">Welcome to<br>TechZone</h1>
+            </div>
+            <img src="hero-headphones.png" alt="Headphones product image" onerror="this.style.display='none'">
+      </div>
+          </div>
+        </div>
+<div class="popular-wrap">
+  <div class="popular-inner">
+    <div class="popular-title">Popular now</div>
+
+    <div class="products-grid">
+      <div class="product-card">
+    
+        <img src="headphones (4).png" alt="Wireless headphones" onerror="this.style.display='none'">
+        <h4>Wireless Headphones</h4>
+        <div class="price">$39</div>
+      </div>
+
+      <div class="product-card">
+        
+        <img src="smartphones.png" alt="Phone accessory" onerror="this.style.display='none'">
+        <h4>Phone Accessories</h4>
+        <div class="price">From $12</div>
+      </div>
+
+      <div class="product-card">
+        
+        <img src="laptop.png" alt="Student laptop" onerror="this.style.display='none'">
+        <h4>Student Laptops</h4>
+        <div class="price">$499</div>
+      </div>
+
+      <div class="product-card">
+        
+        <img src="earbuds.png" alt="Bluetooth earbuds" onerror="this.style.display='none'">
+        <h4>Bluetooth Earbuds</h4>
+        <div class="price">$29</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div class="page-end">
+          <div class="disclaimer">Mock webpage for classroom use. Not a real business.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const pages = [
+      document.getElementById('homePage'),
+      document.getElementById('emailPage'),
+      document.getElementById('newUserPage'),
+      document.getElementById('detailsPage'),
+      document.getElementById('codePage'),
+      document.getElementById('welcomePage')
+    ];
+
+    let currentPage = 0;
+    let currentCode = '483921';
+    const historyStack = [0];
+    const forwardStack = [];
+
+    const expectedEmail = 'hossein.ahmadi89@gmail.com';
+    const expectedFirstName = 'Hossein';
+    const expectedLastName = 'Ahmadi';
+    const expectedPassword = 'GreenBus!89';
+
+    function renderPage(index) {
+      pages.forEach((page, i) => {
+        page.classList.toggle('hidden', i !== index);
+      });
+      currentPage = index;
+      updateNavButtons();
+      closeAllPopups();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    function navigateTo(index, recordHistory = true) {
+      if (index < 0 || index >= pages.length) return;
+      if (recordHistory && historyStack[historyStack.length - 1] !== index) {
+        historyStack.push(index);
+        forwardStack.length = 0;
+      }
+      renderPage(index);
+    }
+
+    function goToPage(index) {
+      navigateTo(index, true);
+    }
+
+    function goBack() {
+      if (historyStack.length <= 1) return;
+      const current = historyStack.pop();
+      forwardStack.push(current);
+      const previous = historyStack[historyStack.length - 1];
+      renderPage(previous);
+    }
+
+    function goForward() {
+      if (!forwardStack.length) return;
+      const next = forwardStack.pop();
+      historyStack.push(next);
+      renderPage(next);
+    }
+
+    function updateNavButtons() {
+      document.querySelectorAll('.browser-btn').forEach(btn => {
+        const action = btn.textContent.trim();
+        if (action === '←') btn.disabled = historyStack.length <= 1;
+        if (action === '→') btn.disabled = forwardStack.length === 0;
+      });
+    }
+
+    function showPopup(id) {
+      const popup = document.getElementById(id);
+      if (popup) popup.classList.add('show');
+    }
+
+    function closePopup(id) {
+      const popup = document.getElementById(id);
+      if (popup) popup.classList.remove('show');
+    }
+
+    function closeAllPopups() {
+      document.querySelectorAll('.popup-overlay').forEach(popup => {
+        popup.classList.remove('show');
+      });
+    }
+
+    function verifyEmailOnly() {
+      const email = document.getElementById('email').value.trim();
+      const feedback = document.getElementById('emailFeedback');
+
+      if (email === '') {
+        feedback.textContent = 'Please enter the email address.';
+        feedback.className = 'feedback error';
+        return;
+      }
+
+      if (email.toLowerCase() !== expectedEmail.toLowerCase()) {
+        feedback.textContent = 'That email address is not correct. Please check and try again.';
+        feedback.className = 'feedback error';
+        return;
+      }
+
+      feedback.textContent = 'Email correct.';
+      feedback.className = 'feedback success';
+
+      setTimeout(() => {
+        feedback.textContent = '';
+        feedback.className = 'feedback';
+        goToPage(2);
+      }, 500);
+    }
+
+    function togglePassword() {
+      const password = document.getElementById('password');
+      password.type = password.type === 'password' ? 'text' : 'password';
+    }
+
+    function verifyDetails() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const feedback = document.getElementById('formFeedback');
+
+  const messages = [];
+
+  if (firstName === '') {
+  messages.push('Please enter the first name.');
+} else if (firstName !== expectedFirstName) {
+  if (firstName.toLowerCase() === expectedFirstName.toLowerCase()) {
+    messages.push('First letter of names must be capital. Please try again.');
+  } else {
+    messages.push('First name is not correct. Please check and try again.');
+  }
+}
+
+if (lastName === '') {
+  messages.push('Please enter the last name.');
+} else if (lastName !== expectedLastName) {
+  if (lastName.toLowerCase() === expectedLastName.toLowerCase()) {
+    messages.push('First letter of names must be capital. Please try again.');
+  } else {
+    messages.push('Last name is not correct. Please check and try again.');
+  }
+}
+
+  if (password === '') {
+    messages.push('Please enter the password.');
+  } else if (password !== expectedPassword) {
+    messages.push('Password is not correct. Please check and try again.');
+  }
+
+  if (messages.length > 0) {
+    feedback.innerHTML = messages.join('<br>');
+    feedback.className = 'feedback error';
+    return;
+  }
+
+  feedback.textContent = 'Details correct.';
+  feedback.className = 'feedback success';
+
+  currentCode = generateCode();
+  updateDisplayedCode();
+
+  setTimeout(() => {
+    feedback.textContent = '';
+    feedback.className = 'feedback';
+    goToPage(4);
+  }, 500);
+}
+
+    function generateCode() {
+      return String(Math.floor(100000 + Math.random() * 900000));
+    }
+
+  function updateDisplayedCode() {
+  const codeEl = document.getElementById('displayCodeInlineShort');
+  if (codeEl) {
+    codeEl.textContent = currentCode;
+  }
+}
+
+    function resendCode() {
+      currentCode = generateCode();
+      updateDisplayedCode();
+      const feedback = document.getElementById('codeFeedback');
+      feedback.textContent = 'A new code has been sent.';
+      feedback.className = 'feedback success';
+      document.getElementById('securityCode').value = '';
+    }
+
+    function checkCode() {
+      const input = document.getElementById('securityCode').value.trim();
+      const feedback = document.getElementById('codeFeedback');
+
+      if (input === '') {
+        feedback.textContent = 'Please enter the security code.';
+        feedback.className = 'feedback error';
+        return;
+      }
+
+      if (input !== currentCode) {
+        feedback.textContent = 'That security code is not correct. Please try again.';
+        feedback.className = 'feedback error';
+        return;
+      }
+
+      feedback.textContent = 'Code accepted.';
+      feedback.className = 'feedback success';
+
+      const firstName = document.getElementById('firstName').value.trim() || 'User';
+      document.getElementById('welcomeName').textContent = firstName;
+
+      setTimeout(() => {
+        feedback.textContent = '';
+        feedback.className = 'feedback';
+        goToPage(5);
+      }, 500);
+    }
+
+    renderPage(0);
+  </script>
+</body>
+</html>
